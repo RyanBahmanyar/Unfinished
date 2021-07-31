@@ -51,7 +51,6 @@ public abstract class Moveable : MonoBehaviour
         {
             corrected = direction.normalized;
         }
-
         
         Vector2 goalVelocity = new Vector2(corrected.x * speed * movementRatio.x, corrected.y * speed * movementRatio.y);
 

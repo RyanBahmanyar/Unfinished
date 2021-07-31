@@ -40,6 +40,11 @@ public class PlayerController : Moveable
     /// </summary>
     private const string lightAttackAnimatorKey = "Light Attack";
 
+    /// <summary>
+    /// The name of the trigger that the animator uses to play the projectile attack animation.
+    /// </summary>
+    private const string projectileAttackAnimatorKey = "Projectile Attack";
+
     protected override void Awake()
     {
         base.Awake();
@@ -101,9 +106,16 @@ public class PlayerController : Moveable
 
 
         //When player can attack and wants to, attack.
-        if (Input.GetMouseButton(0) && canAttack)
+        if (canAttack)
         {
-            anim.SetTrigger(lightAttackAnimatorKey);
+            if (Input.GetMouseButton(0))
+            {
+                anim.SetTrigger(lightAttackAnimatorKey);
+            }
+            else if(Input.GetMouseButton(1))
+            {
+                anim.SetTrigger(projectileAttackAnimatorKey);
+            }
         }
 
     }
