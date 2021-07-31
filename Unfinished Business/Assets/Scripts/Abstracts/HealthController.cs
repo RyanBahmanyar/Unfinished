@@ -2,17 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthController : MonoBehaviour
+/// <summary>
+/// Contains methods for handling received damage and character death
+/// </summary>
+public abstract class HealthController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// The method to call from an opposing hitbox.
+    /// </summary>
+    /// <param name="damage">The damage of the incoming attack</param>
+    public void Damage(int damage) 
     {
-        
+        onDamage(damage);
+        checkDeath();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// Handles the incoming damage from an opposing hitbox
+    /// </summary>
+    /// <param name="damage">The damage of the incoming attack</param>
+    protected abstract void onDamage(int damage);
+
+    /// <summary>
+    /// Check for the death conditions of the attached character
+    /// </summary>
+    /// <returns></returns>
+    protected abstract bool checkDeath();
+
+    /// <summary>
+    /// Handles the death event of the attached character
+    /// </summary>
+    protected abstract void onDeath();
 }
