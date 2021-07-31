@@ -131,8 +131,8 @@ TextureImporter:
         y: 1415
         width: 1648
         height: 3385
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.6943939, y: 0.058948744}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,8 +152,8 @@ TextureImporter:
         y: 1404
         width: 1648
         height: 3385
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.6809839, y: 0.05673381}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,8 +173,8 @@ TextureImporter:
         y: 1435
         width: 1817
         height: 3369
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.91529274, y: 0.08365052}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -190,12 +190,12 @@ TextureImporter:
       name: Enemy1SpriteSheetwCoin_3
       rect:
         serializedVersion: 2
-        x: 5357
+        x: 5372
         y: 1433
         width: 1878
         height: 3369
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.90813994, y: 0.09120721}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

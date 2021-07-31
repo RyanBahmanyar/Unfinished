@@ -1,25 +1,16 @@
 fileFormatVersion: 2
-guid: bfb6e1b18c8793f4f8112bc6e2bbfa8a
+guid: 226a26328af1e6647848530d975feb03
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3203155182410607433
-    second: Enemy3SpriteSheet_0
+      213: -5373306373770503714
+    second: Bill_Idle_0
   - first:
-      213: 7762189921868945781
-    second: Enemy3SpriteSheet_1
+      213: -1326556510598424554
+    second: Bill_Idle_1
   - first:
-      213: -8774870560733082819
-    second: Enemy3SpriteSheet_2
-  - first:
-      213: -8631201344265152777
-    second: Enemy3SpriteSheet_3
-  - first:
-      213: 5822584888420330439
-    second: Enemy3SpriteSheet_4
-  - first:
-      213: 4357998821831284819
-    second: Enemy3SpriteSheet_5
+      213: -1741799275355152504
+    second: Bill_Idle_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -105,113 +96,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy3SpriteSheet_0
+      name: Bill_Idle_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 3633
-        width: 1831
-        height: 3571
-      alignment: 9
-      pivot: {x: 0.6695191, y: 0.017383961}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b4d6f7255b1c83d0800000000000000
-      internalID: -3203155182410607433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy3SpriteSheet_1
-      rect:
-        serializedVersion: 2
-        x: 1949
-        y: 3645
-        width: 1626
-        height: 3550
-      alignment: 9
-      pivot: {x: 0.7427049, y: 0.018735833}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5799d1cab96d8bb60800000000000000
-      internalID: 7762189921868945781
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy3SpriteSheet_2
-      rect:
-        serializedVersion: 2
-        x: 3860
-        y: 3645
-        width: 1831
-        height: 3568
-      alignment: 9
-      pivot: {x: 0.6695192, y: 0.01988405}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d3bc87d57b5693680800000000000000
-      internalID: -8774870560733082819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy3SpriteSheet_3
-      rect:
-        serializedVersion: 2
-        x: 6212
-        y: 3690
-        width: 2312
-        height: 3514
-      alignment: 9
-      pivot: {x: 0.91617996, y: 0.022713346}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f693328b10d73880800000000000000
-      internalID: -8631201344265152777
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy3SpriteSheet_4
-      rect:
-        serializedVersion: 2
-        x: 154
-        y: 363
-        width: 2524
-        height: 2970
+        x: 75
+        y: 638
+        width: 454
+        height: 501
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,20 +114,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7cbe9dc4b1afdc050800000000000000
-      internalID: 5822584888420330439
+      spriteID: ed91112725e2e65b0800000000000000
+      internalID: -5373306373770503714
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy3SpriteSheet_5
+      name: Bill_Idle_1
       rect:
         serializedVersion: 2
-        x: 3112
-        y: 537
-        width: 3634
-        height: 1594
+        x: 645
+        y: 638
+        width: 509
+        height: 507
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,8 +135,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35813dab6d8ba7c30800000000000000
-      internalID: 4357998821831284819
+      spriteID: 6189c4bc1ef179de0800000000000000
+      internalID: -1326556510598424554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bill_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 638
+        width: 551
+        height: 507
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88f5c6a99c2e3d7e0800000000000000
+      internalID: -1741799275355152504
       vertices: []
       indices: 
       edges: []

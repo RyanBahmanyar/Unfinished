@@ -32,10 +32,10 @@ public static class PerspectiveUtilities
     /// <summary>
     /// Gives a random vector in the foreshortened space that is in a circle with a radius of 1.
     /// </summary>
-    public static Vector2 GetRandomVectorPerspectiveEllipse()
+    public static Vector2 GetRandomVectorPerspectiveEllipse(bool randomMagnitude = true)
     {
         float angle = Random.Range(0f, 2f*Mathf.PI);
-        float magnitude = Random.value;
+        float magnitude = randomMagnitude ? Random.value : 1f;
 
         Vector2 normalizedVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
