@@ -49,8 +49,6 @@ public abstract class Moveable : MonoBehaviour
         
         Vector2 goalVelocity = new Vector2(corrected.x * speed * PerspectiveUtilities.perspectiveRatio.x, corrected.y * speed * PerspectiveUtilities.perspectiveRatio.y);
 
-        Debug.Log(goalVelocity);
-
         Vector2 currentVelocity = controller.velocity;
 
         Vector2 difference = goalVelocity - currentVelocity;
