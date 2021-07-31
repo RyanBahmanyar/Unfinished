@@ -133,13 +133,14 @@ GameObject:
   m_Component:
   - component: {fileID: 180087203}
   - component: {fileID: 180087204}
+  - component: {fileID: 180087205}
   m_Layer: 0
   m_Name: Attack Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &180087203
 Transform:
   m_ObjectHideFlags: 0
@@ -148,11 +149,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180087202}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5969196, y: 0.07091919, z: -0.6530064}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.3796785, y: 0.28367677, z: -2.6120255}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
-  m_Father: {fileID: 1722036878}
-  m_RootOrder: 1
+  m_Father: {fileID: 684851843}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &180087204
 CircleCollider2D:
@@ -170,6 +171,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &180087205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180087202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a013e2d2fb0a6f64cb7b1d044977b76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyRef: {fileID: 1722036873}
+  hitTag: Damageable
+  damage: 1
+  depthTolerance: 0.5
+  hitObjects: []
 --- !u!1 &287216065
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +298,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.502, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_Children: []
+  m_Children:
+  - {fileID: 180087203}
   m_Father: {fileID: 1213834035}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -346,9 +365,10 @@ GameObject:
   - component: {fileID: 908538507}
   - component: {fileID: 908538506}
   - component: {fileID: 908538505}
+  - component: {fileID: 908538508}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,6 +454,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &908538508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908538504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcf54c5679f9340afceb69855b59c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 10
 --- !u!1 &1213834034
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +663,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1554667190}
-  - {fileID: 180087203}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

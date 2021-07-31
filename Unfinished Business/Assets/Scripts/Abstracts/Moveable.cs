@@ -45,6 +45,15 @@ public abstract class Moveable : MonoBehaviour
         {
             corrected = direction.normalized;
         }
+<<<<<<< Updated upstream
+=======
+        
+        Vector2 goalVelocity = new Vector2(corrected.x * speed * PerspectiveUtilities.perspectiveRatio.x, corrected.y * speed * PerspectiveUtilities.perspectiveRatio.y);
+
+        //Debug.Log(goalVelocity);
+
+        Vector2 currentVelocity = controller.velocity;
+>>>>>>> Stashed changes
 
         Vector3 move = new Vector3(corrected.x * speed * movementRatio.x, corrected.y * speed * movementRatio.y, 0);
 
