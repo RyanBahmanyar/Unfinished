@@ -14,7 +14,8 @@ public abstract class HealthController : MonoBehaviour
     public void Damage(int damage) 
     {
         onDamage(damage);
-        checkDeath();
+        if (isDead())
+            onDeath();
     }
 
     /// <summary>
@@ -27,7 +28,7 @@ public abstract class HealthController : MonoBehaviour
     /// Check for the death conditions of the attached character
     /// </summary>
     /// <returns></returns>
-    protected abstract bool checkDeath();
+    protected abstract bool isDead();
 
     /// <summary>
     /// Handles the death event of the attached character
