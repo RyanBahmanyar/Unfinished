@@ -23,13 +23,10 @@ public class Collectable : MonoBehaviour
     {
         if (collision.CompareTag(playerTag))
         {
-            Collect();
+            PlayerHealth playerHP = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerHealth>();
+            playerHP.Money += 1;
+            DisableCollectable();
         }
-    }
-
-    public void Collect ()
-    {
-        DisableCollectable();
     }
 
     // Called by CollectablePool to start the bouncing effect

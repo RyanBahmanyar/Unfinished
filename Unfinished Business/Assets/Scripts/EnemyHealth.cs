@@ -6,7 +6,16 @@ public class EnemyHealth : HealthController
 {
     [SerializeField]
     int HP;
-    
+
+    [SerializeField]
+    int moneyDropAmount;
+
+    [SerializeField]
+    float moneyDropDistance;
+
+    [SerializeField]
+    float moneyDropTime;
+
     protected override bool isDead()
     {
         return HP <= 0;
@@ -19,6 +28,8 @@ public class EnemyHealth : HealthController
 
     protected override void onDeath()
     {
+        GameObject.FindWithTag("Cash Pool").GetComponent<CollectablePool>().SpawnCollectables(moneyDropAmount, this.transform.position, moneyDropDistance, moneyDropTime);
+        // Play death animation, destroy with animation event
         this.gameObject.SetActive(false);
     }
 }
