@@ -17,6 +17,17 @@ public class PlayerHealth : HealthController
     // Whether or not the player took damage at $0
     private bool hitAtZero = false;
 
+    // The global cash pool
+    CollectablePool cashPool;
+
+    // The distance to drop the money from the player
+    [SerializeField]
+    float moneyDropDistance;
+
+    // The time it takes for the money to drop away from the player
+    [SerializeField]
+    float moneyDropTime;
+
     // Returns hitAtZero
     protected override bool isDead()
     {
@@ -57,9 +68,14 @@ public class PlayerHealth : HealthController
         /// - Restart from the beginning of the level
     }
 
-    private void DropMoney(float amount) 
+    private void DropMoney(int amount) 
     {
-        // Drop the amount of money specified
+        cashPool.SpawnCollectables(amount, this.transform.position, moneyDropDistance, moneyDropTime);
+    }
+
+    private void Start()
+    {
+        cashPool = GameObject.FindWithTag("Cash Pool").GetComponent<CollectablePool>();
     }
 
     private void Update()
