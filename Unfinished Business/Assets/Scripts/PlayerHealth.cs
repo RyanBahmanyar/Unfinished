@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerHealth : HealthController
 {
     // The HP of the player. If they are damaged at $0, they die.
-    [SerializeField]
-    int Money;
+    public int Money;
 
     // The amount of time the player is invincible after being hit.
     [SerializeField]
