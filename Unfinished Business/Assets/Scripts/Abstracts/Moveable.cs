@@ -21,12 +21,6 @@ public abstract class Moveable : MonoBehaviour
     private float maxVelocityChange;
 
     /// <summary>
-    /// How much objects move vertically vs horizontally.
-    /// (In beat'em-ups, characters move more horizontally than they do vertically due to the perspective of the camera.)
-    /// </summary>
-    private static Vector2 movementRatio = new Vector2(1,0.75f);
-
-    /// <summary>
     /// The Unity Character Controller.
     /// </summary>
     private Rigidbody2D controller;
@@ -41,6 +35,7 @@ public abstract class Moveable : MonoBehaviour
 
     /// <summary>
     /// Moves a character in the given direction.
+    /// Call this once per frame.
     /// </summary>
     /// <param name="direction">The direction to move the object in.</param>
     protected void Move(Vector2 direction)
@@ -52,7 +47,7 @@ public abstract class Moveable : MonoBehaviour
             corrected = direction.normalized;
         }
         
-        Vector2 goalVelocity = new Vector2(corrected.x * speed * movementRatio.x, corrected.y * speed * movementRatio.y);
+        Vector2 goalVelocity = new Vector2(corrected.x * speed * PerspectiveUtilities.perspectiveRatio.x, corrected.y * speed * PerspectiveUtilities.perspectiveRatio.y);
 
         Debug.Log(goalVelocity);
 
@@ -65,7 +60,7 @@ public abstract class Moveable : MonoBehaviour
             difference = difference.normalized * maxVelocityChange;
         }
 
-
         controller.velocity += difference;
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
     }
 }
