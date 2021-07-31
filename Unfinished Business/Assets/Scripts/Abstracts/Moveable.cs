@@ -28,7 +28,7 @@ public abstract class Moveable : MonoBehaviour
     /// <summary>
     /// Get the Unity Character Controller when this object is active.
     /// </summary>
-    private void Awake()
+    protected virtual void Awake()
     {
         controller = GetComponent<CharacterController>();
     }
@@ -39,13 +39,15 @@ public abstract class Moveable : MonoBehaviour
     /// <param name="direction">The direction to move the object in.</param>
     protected void Move(Vector2 direction)
     {
-        Vector2 normalized = direction;
+        Vector2 corrected = direction;
 
         if (direction.magnitude > 1)
         {
-            normalized = direction.normalized;
+            corrected = direction.normalized;
         }
 
-        controller.Move(new Vector3(normalized.x * speed * movementRatio.x, normalized.y * speed * movementRatio.y, 0));
+        Vector3 move = new Vector3(corrected.x * speed * movementRatio.x, corrected.y * speed * movementRatio.y, 0);
+
+        controller.Move(move);
     }
 }
