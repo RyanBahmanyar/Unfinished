@@ -40,6 +40,11 @@ public class PlayerController : Moveable
     /// </summary>
     private const string lightAttackAnimatorKey = "Light Attack";
 
+    /// <summary>
+    /// The name of the trigger that the animator uses to play the projectile attack animation.
+    /// </summary>
+    private const string projectileAttackAnimatorKey = "Projectile Attack";
+
     protected override void Awake()
     {
         base.Awake();
@@ -68,13 +73,18 @@ public class PlayerController : Moveable
 
     private void FixedUpdate()
     {
+
         //Process the player movement for this frame...
-        if (canMove)
         {
-            Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            Vector2 direction = Vector2.zero;
+
+            if (canMove)
+            {
+                direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            }
 
             //Face the player in the right direction...
-            if ((direction.x > 0 && !facingRight)|| (direction.x < 0 && facingRight))
+            if ((direction.x > 0 && !facingRight) || (direction.x < 0 && facingRight))
             {
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 facingRight = !facingRight;
@@ -93,15 +103,19 @@ public class PlayerController : Moveable
             //Actually move the player.
             Move(direction);
         }
-        else //When not moving don't play the moving animation.
-        {
-            anim.SetBool(walkingAnimatorKey, false);
-        }
+
 
         //When player can attack and wants to, attack.
-        if (Input.GetMouseButton(0) && canAttack)
+        if (canAttack)
         {
-            anim.SetTrigger(lightAttackAnimatorKey);
+            if (Input.GetMouseButton(0))
+            {
+                anim.SetTrigger(lightAttackAnimatorKey);
+            }
+            else if(Input.GetMouseButton(1))
+            {
+                anim.SetTrigger(projectileAttackAnimatorKey);
+            }
         }
 
     }
