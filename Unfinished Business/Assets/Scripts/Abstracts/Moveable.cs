@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// A wrapper for the Unity Character Controller class that allows objects to move on screen.
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody2D))]
 public abstract class Moveable : MonoBehaviour
 {
     /// <summary>
@@ -13,6 +13,12 @@ public abstract class Moveable : MonoBehaviour
     /// </summary>
     [SerializeField]
     private float speed;
+
+    /// <summary>
+    /// The "acceleration" of the movement of the player.
+    /// </summary>
+    [SerializeField]
+    private float maxVelocityChange;
 
     /// <summary>
     /// How much objects move vertically vs horizontally.
@@ -23,14 +29,14 @@ public abstract class Moveable : MonoBehaviour
     /// <summary>
     /// The Unity Character Controller.
     /// </summary>
-    private CharacterController controller;
+    private Rigidbody2D controller;
 
     /// <summary>
     /// Get the Unity Character Controller when this object is active.
     /// </summary>
     protected virtual void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponent<Rigidbody2D>();
     }
 
     /// <summary>
@@ -46,8 +52,21 @@ public abstract class Moveable : MonoBehaviour
             corrected = direction.normalized;
         }
 
-        Vector3 move = new Vector3(corrected.x * speed * movementRatio.x, corrected.y * speed * movementRatio.y, 0);
+        
+        Vector2 goalVelocity = new Vector2(corrected.x * speed * movementRatio.x, corrected.y * speed * movementRatio.y);
 
-        controller.Move(move);
+        Debug.Log(goalVelocity);
+
+        Vector2 currentVelocity = controller.velocity;
+
+        Vector2 difference = goalVelocity - currentVelocity;
+
+        if (difference.magnitude > maxVelocityChange)
+        {
+            difference = difference.normalized * maxVelocityChange;
+        }
+
+
+        controller.velocity += difference;
     }
 }
