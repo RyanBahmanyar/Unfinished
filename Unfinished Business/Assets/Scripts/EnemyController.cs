@@ -186,9 +186,13 @@ public class EnemyController : Moveable
             anim.SetBool(walkingAnimatorKey, false);
             return;
         }
-
+        
+        
         //Get the direction to the next waypoint.
-        Vector2 direction = path.vectorPath[currentWaypoint] - transform.position;
+        Vector2 direction = Vector2.zero;
+        if (currentWaypoint < path.vectorPath.Count)
+            direction = path.vectorPath[currentWaypoint] - transform.position;
+
         direction = PerspectiveUtilities.UnForeshortenVector(direction);
 
         //Check if the Enemy is in a comfortable spot / can move at all.
@@ -215,13 +219,17 @@ public class EnemyController : Moveable
 
         Move(direction);
 
+        float waypointDistance = float.PositiveInfinity;
+
         //Check if the Enemy needs to move to another waypoint.
-        float waypointDistance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
+        if (currentWaypoint < path.vectorPath.Count)
+            waypointDistance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
 
         if (waypointDistance < nextWaypointDistance)
         {
             currentWaypoint++;
         }
+        
 
         //Face the Enemy towards the target...
         if (canMove && (transform.position.x < targetObj.position.x && !facingRight) || (transform.position.x > targetObj.position.x && facingRight))
