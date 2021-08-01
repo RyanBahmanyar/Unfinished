@@ -47,7 +47,7 @@ public abstract class Moveable : MonoBehaviour
             corrected = direction.normalized;
         }
         
-        Vector2 goalVelocity = new Vector2(corrected.x * speed * PerspectiveUtilities.perspectiveRatio.x, corrected.y * speed * PerspectiveUtilities.perspectiveRatio.y);
+        Vector2 goalVelocity = new Vector2(corrected.x * speed * PerspectiveUtilities.perspectiveRatio.x, corrected.y * speed * PerspectiveUtilities.perspectiveRatio.y) * Time.deltaTime;
 
         Vector2 currentVelocity = controller.velocity;
 
