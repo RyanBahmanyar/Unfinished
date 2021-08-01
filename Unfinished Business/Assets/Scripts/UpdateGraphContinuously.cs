@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
-using System.Threading;
 
 [RequireComponent(typeof(AstarPath))]
 public class UpdateGraphContinuously : MonoBehaviour
 {
     private AstarPath pathfinder;
-    private Thread updateGraph; 
-
+    
     public bool IsSyncing
     {
         get;

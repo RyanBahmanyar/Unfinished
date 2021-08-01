@@ -162,9 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b6030395e62373498a44a6ddf066e25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 250
   maxVelocityChange: 1.5
+  dashSpeed: 10
   facingRight: 0
+  foot: {fileID: 0}
 --- !u!1 &2964695086305667198
 GameObject:
   m_ObjectHideFlags: 0

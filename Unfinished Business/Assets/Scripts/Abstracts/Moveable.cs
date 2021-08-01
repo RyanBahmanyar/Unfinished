@@ -21,9 +21,15 @@ public abstract class Moveable : MonoBehaviour
     private float maxVelocityChange;
 
     /// <summary>
-    /// The Unity Character Controller.
+    /// The Unity Rigidbody 2D.
     /// </summary>
     private Rigidbody2D controller;
+
+    /// <summary>
+    /// The speed at which this character can dash.
+    /// </summary>
+    [SerializeField]
+    private float dashSpeed;
 
     /// <summary>
     /// Get the Unity Character Controller when this object is active.
@@ -47,7 +53,7 @@ public abstract class Moveable : MonoBehaviour
             corrected = direction.normalized;
         }
         
-        Vector2 goalVelocity = new Vector2(corrected.x * speed * PerspectiveUtilities.perspectiveRatio.x, corrected.y * speed * PerspectiveUtilities.perspectiveRatio.y);
+        Vector2 goalVelocity = new Vector2(corrected.x * speed * PerspectiveUtilities.perspectiveRatio.x, corrected.y * speed * PerspectiveUtilities.perspectiveRatio.y) * Time.deltaTime;
 
         Vector2 currentVelocity = controller.velocity;
 
@@ -59,6 +65,18 @@ public abstract class Moveable : MonoBehaviour
         }
 
         controller.velocity += difference;
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+    }
+
+
+    /// <summary>
+    /// Gives a short burst of velocity in a given direction.
+    /// </summary>
+    /// <param name="direction">The direction to move in.</param>
+    protected void Dash(Vector2 direction)
+    {
+        Vector2 velocityChange = PerspectiveUtilities.ForeshortenVector(direction.normalized * dashSpeed);
+        controller.velocity += velocityChange;
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
     }
 }

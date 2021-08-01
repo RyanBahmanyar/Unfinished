@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 525b64d9b0c277d428f80fbe4f1b5db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 160
   maxVelocityChange: 1
   targetObj: {fileID: 0}
   nextWaypointDistance: 0.75
