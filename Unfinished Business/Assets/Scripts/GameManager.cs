@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void Quit ()
+    {
+        Application.Quit();
+    }
+
     // Plays a transition and restarts the scene
     public void GameOver (VoidCallback callback)
     {
