@@ -13,15 +13,20 @@ public class Collectable : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] float despawnTime = 5f;
-    [SerializeField] 
-    [Tooltip("This is how long the item blinks before despawning")] 
+    [SerializeField]
+    [Tooltip("This is how long the item blinks before despawning")]
     float graceTime = 2f;
     [SerializeField] int numBlinks = 3;
     [SerializeField] GameObject sprite;
 
+    [Header("Tolerance")]
+    [SerializeField]
+    float pickupTolerance;
+    float pickupTimer;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(playerTag))
+        if (collision.CompareTag(playerTag) && pickupTimer >= pickupTolerance)
         {
             PlayerHealth playerHP = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerHealth>();
             playerHP.Money += 1;
@@ -32,6 +37,7 @@ public class Collectable : MonoBehaviour
     // Called by CollectablePool to start the bouncing effect
     public void EnableCollectable (Vector2 position, float distance, float time)
     {
+        pickupTolerance = time;
         sprite.SetActive(true);
         transform.position = position;
         gameObject.SetActive(true);
@@ -42,6 +48,8 @@ public class Collectable : MonoBehaviour
 
     public void DisableCollectable ()
     {
+        pickupTimer = 0;
+        pickupTolerance = 0;
         gameObject.SetActive(false);
     }
 
@@ -78,5 +86,11 @@ public class Collectable : MonoBehaviour
             yield return new WaitForSeconds(blinkTime / 2f);
         }
         DisableCollectable();
+    }
+
+    private void Update()
+    {
+        if (pickupTimer < pickupTolerance)
+            pickupTimer += Time.deltaTime;
     }
 }
