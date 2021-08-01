@@ -70,23 +70,47 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void GameOver (VoidCallback callback = null)
+    // Plays a transition and restarts the scene
+    public void GameOver (VoidCallback callback)
     {
         LevelAtIndex(SceneManager.GetActiveScene().buildIndex, callback);
     }
 
-    public void LevelAtIndex (int index, VoidCallback callback = null)
+    // Plays a transition and loads a specific scene index
+    public void LevelAtIndex (int index, VoidCallback callback)
     {
         StartCoroutine(DoSceneTransition(index, callback));
     }
 
-    public void NextLevel (VoidCallback callback = null)
+    // Plays a transition and loads the next scene
+    public void NextLevel (VoidCallback callback)
     {
         LevelAtIndex(SceneManager.GetActiveScene().buildIndex + 1, callback);
     }
 
-    public void PreviousLevel (VoidCallback callback = null)
+    // Plays a transition and loads the previous scene
+    public void PreviousLevel (VoidCallback callback)
     {
         LevelAtIndex(SceneManager.GetActiveScene().buildIndex - 1, callback);
+    }
+
+    // Overloads of the above methods that can be used in unity events. 
+    // I was unable to use optional parameter syntax here because it 
+    // prevented unity events from using the methods.
+    public void GameOver()
+    {
+        LevelAtIndex(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void LevelAtIndex(int index)
+    {
+        StartCoroutine(DoSceneTransition(index));
+    }
+    public void NextLevel()
+    {
+        LevelAtIndex(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void PreviousLevel()
+    {
+        LevelAtIndex(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }
