@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float transistionTime = 1f;
     
     private Animator transitioner;
+    private PlayerHealth playerHealthRef;
 
+    public int Score { get; private set; }
+    public int CurrentHighestScore { get; private set; }
     public static GameManager instance { get; private set; }
 
     private void Awake()
@@ -39,10 +42,23 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (playerHealthRef != null)
+        {
+            Score = playerHealthRef.Money;
+            if (Score > CurrentHighestScore)
+            {
+                CurrentHighestScore = Score;
+            }
+        }
+    }
+
     private void OnSceneLoaded(Scene aScene, LoadSceneMode aMode)
 
     {
         transitioner = GameObject.FindGameObjectWithTag("SceneTransitioner").GetComponent<Animator>();
+        playerHealthRef = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     private IEnumerator DoSceneTransition (int index, VoidCallback callback = null)

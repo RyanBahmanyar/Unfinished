@@ -21,4 +21,19 @@ public class MenuButtons : MonoBehaviour
     {
         GameManager.instance.PreviousLevel();
     }
+
+    public void Restart ()
+    {
+        GameManager.instance.GameOver();
+    }
+
+    public void Unfreeze ()
+    {
+        GameManager.instance.Unfreeze();
+    }
+
+    public void Freeze ()
+    {
+        GameManager.instance.Freeze();
+    }
 }
