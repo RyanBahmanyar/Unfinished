@@ -125,6 +125,11 @@ public class EnemyController : Moveable
         canAttack = true;
     }
 
+    public void SetTarget(Transform _target)
+    {
+        targetObj = _target;
+    }
+
     /// <summary>
     /// Looks for a new path for the Enemy to follow.
     /// </summary>
