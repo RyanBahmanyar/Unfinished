@@ -19,16 +19,45 @@ public class PlayerController : Moveable
     private bool canMove = true;
     
     /// <summary>
-    /// Whether the player can attack (through inputs).
+    /// Whether the player can attack.
     /// This is controlled with events in the player animations.
     /// </summary>
     private bool canAttack = true;
+
+    /// <summary>
+    /// Whether the player can dash.
+    /// This is controlled with events in the player animations.
+    /// </summary>
+    private bool canDash = true;
+
+    /// <summary>
+    /// Time until next dash.
+    /// </summary>
+    private float dashTimer = 0;
+
+    /// <summary>
+    /// Time between dashes.
+    /// </summary>
+    [SerializeField]
+    private float dashPause = 1f;
 
     /// <summary>
     /// Whether the player is facing right or not.
     /// </summary>
     [SerializeField]
     private bool facingRight;
+
+    /// <summary>
+    /// The collider that detects oncoming attacks.
+    /// </summary>
+    private Collider2D damageBox;
+
+    /// <summary>
+    /// The object that detects collisions between the player and obstacles.
+    /// (Moved to a different layer during dash).
+    /// </summary>
+    [SerializeField]
+    private GameObject foot;
 
     /// <summary>
     /// The name of the bool that the animator uses to play the walking animation.
@@ -45,10 +74,16 @@ public class PlayerController : Moveable
     /// </summary>
     private const string projectileAttackAnimatorKey = "Projectile Attack";
 
+    /// <summary>
+    /// The name of the trigger that the animator uses to play the dash animation.
+    /// </summary>
+    private const string dashAnimatorKey = "Dash";
+
     protected override void Awake()
     {
         base.Awake();
         anim = GetComponent<Animator>();
+        damageBox = GetComponent<Collider2D>();
     }
 
     public void DisableMove()
@@ -71,9 +106,30 @@ public class PlayerController : Moveable
         canAttack = true;
     }
 
+    public void DisableDash()
+    {
+        canDash = false;
+    }
+
+    public void EnableDash()
+    {
+        canDash = true;
+    }
+
+    public void DashEffectOn()
+    {
+        foot.layer = 11;
+        damageBox.enabled = false;
+    }
+
+    public void DashEffectOff()
+    {
+        foot.layer = 8;
+        damageBox.enabled = true;
+    }
+
     private void FixedUpdate()
     {
-
         //Process the player movement for this frame...
         {
             Vector2 direction = Vector2.zero;
@@ -102,6 +158,18 @@ public class PlayerController : Moveable
 
             //Actually move the player.
             Move(direction);
+
+            //Dash processing
+            dashTimer += Time.deltaTime;
+            dashTimer = Mathf.Min(dashTimer, dashPause);
+
+            if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.LeftShift)) && canDash && dashTimer >= dashPause)
+            {
+                Dash(direction);
+                dashTimer = 0;
+                anim.SetTrigger(dashAnimatorKey);
+            }
+            
         }
 
 
