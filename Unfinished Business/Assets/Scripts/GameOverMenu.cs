@@ -15,13 +15,6 @@ public class GameOverMenu : MonoBehaviour
     {
         mainUI = GameObject.FindWithTag(UITag);
         SetChildrenActive(false);
-        StartCoroutine(Test());
-    }
-
-    private IEnumerator Test ()
-    {
-        yield return new WaitForSeconds(2f);
-        Open();
     }
 
     private void SetChildrenActive (bool active)
