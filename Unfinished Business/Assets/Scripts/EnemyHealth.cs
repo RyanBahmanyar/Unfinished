@@ -8,6 +8,9 @@ public class EnemyHealth : HealthController
     int HP;
 
     [SerializeField]
+    float deathSpeed;
+
+    [SerializeField]
     int moneyDropAmount;
 
     [SerializeField]
@@ -15,6 +18,9 @@ public class EnemyHealth : HealthController
 
     [SerializeField]
     float moneyDropTime;
+
+    [SerializeField]
+    Animator anim;
 
     protected override bool isDead()
     {
@@ -24,12 +30,22 @@ public class EnemyHealth : HealthController
     protected override void onDamage(int damage)
     {
         HP -= damage;
+        anim.SetTrigger("Fall");
     }
 
-    protected override void onDeath()
+    protected override void onDeath() { }
+
+    public void ManualCheckDead() 
     {
-        GameObject.FindWithTag("Cash Pool").GetComponent<CollectablePool>().SpawnCollectables(moneyDropAmount, this.transform.position, moneyDropDistance, moneyDropTime);
-        // Play death animation, destroy with animation event
-        this.gameObject.SetActive(false);
+        if (isDead())
+        {
+            GameObject.FindWithTag("Cash Pool").GetComponent<CollectablePool>().SpawnCollectables(moneyDropAmount, this.transform.position, moneyDropDistance, moneyDropTime);
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
     }
 }

@@ -16,12 +16,14 @@ public class PlayerController : Moveable
     /// Whether the player can move (through inputs).
     /// This is controlled with events in the player animations.
     /// </summary>
+    [SerializeField]
     private bool canMove = true;
     
     /// <summary>
     /// Whether the player can attack (through inputs).
     /// This is controlled with events in the player animations.
     /// </summary>
+    [SerializeField]
     private bool canAttack = true;
 
     /// <summary>

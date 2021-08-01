@@ -143,9 +143,10 @@ GameObject:
   - component: {fileID: 6109470477277600112}
   - component: {fileID: 6109470477277600115}
   - component: {fileID: 6109470477277600114}
+  - component: {fileID: 4140281255469351658}
   m_Layer: 9
   m_Name: Enemy3
-  m_TagString: Untagged
+  m_TagString: Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,6 +283,24 @@ MonoBehaviour:
   maxHeightDifference: 0.3
   heightMargin: 0.25
   facingRight: 0
+--- !u!114 &4140281255469351658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109470477277600119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcf54c5679f9340afceb69855b59c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 8
+  deathSpeed: 0
+  moneyDropAmount: 4
+  moneyDropDistance: 1
+  moneyDropTime: 0.1
+  anim: {fileID: 0}
 --- !u!1 &6109470477285359137
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6109470477531573251}
   - component: {fileID: 6109470477531573248}
+  - component: {fileID: 3744206693737594056}
   m_Layer: 10
   m_Name: Kick Hitbox
   m_TagString: Untagged
@@ -392,6 +412,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &3744206693737594056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109470477531573250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a013e2d2fb0a6f64cb7b1d044977b76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyRef: {fileID: 6109470477277600119}
+  hitTag: Player
+  damage: 1
+  depthTolerance: 0.5
+  hitObjects: []
 --- !u!1 &6109470478914293946
 GameObject:
   m_ObjectHideFlags: 0
