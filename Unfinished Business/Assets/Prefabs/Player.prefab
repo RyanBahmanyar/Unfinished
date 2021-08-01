@@ -165,8 +165,9 @@ MonoBehaviour:
   speed: 250
   maxVelocityChange: 1.5
   dashSpeed: 10
+  dashPause: 1
   facingRight: 0
-  foot: {fileID: 0}
+  foot: {fileID: 2964695086410956725}
 --- !u!1 &2964695086305667198
 GameObject:
   m_ObjectHideFlags: 0
