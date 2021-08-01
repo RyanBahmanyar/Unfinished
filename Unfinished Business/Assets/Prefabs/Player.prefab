@@ -166,8 +166,11 @@ MonoBehaviour:
   speed: 250
   maxVelocityChange: 1.5
   dashSpeed: 10
+  canMove: 1
+  canAttack: 1
   dashPause: 1
   facingRight: 0
+  foot: {fileID: 2964695086410956725}
 --- !u!114 &-5222875879281404497
 MonoBehaviour:
   m_ObjectHideFlags: 0

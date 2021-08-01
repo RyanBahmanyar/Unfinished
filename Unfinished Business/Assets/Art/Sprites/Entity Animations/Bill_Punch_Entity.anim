@@ -420,15 +420,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.38333333
-    functionName: EnableMove
+  - time: 0.36666667
+    functionName: EnableAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.38333333
-    functionName: EnableAttack
+  - time: 0.36666667
+    functionName: EnableMove
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
