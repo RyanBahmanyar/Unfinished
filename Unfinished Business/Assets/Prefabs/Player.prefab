@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 2964695086295488052}
   - component: {fileID: 2964695086295488053}
   - component: {fileID: 2964695086295488058}
+  - component: {fileID: -5222875879281404497}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -167,7 +168,22 @@ MonoBehaviour:
   dashSpeed: 10
   dashPause: 1
   facingRight: 0
-  foot: {fileID: 2964695086410956725}
+--- !u!114 &-5222875879281404497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2964695086295488059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0403a620b9e240542b63daba55b14626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Money: 5
+  invicibilityTime: 0.1
+  moneyDropDistance: 1
+  moneyDropTime: 0.1
 --- !u!1 &2964695086305667198
 GameObject:
   m_ObjectHideFlags: 0
