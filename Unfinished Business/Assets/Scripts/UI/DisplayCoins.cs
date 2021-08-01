@@ -28,7 +28,6 @@ public class DisplayCoins : MonoBehaviour
     // Read the player's money amount and update the UI accordingly
     private void UpdateText ()
     {
-        Debug.Log(text);
         text.text = "$" + (playerHeathRef.Money * modifier).ToString();
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Damageable
   - Cash Pool
+  - SceneTransitioner
   layers:
   - Default
   - TransparentFX
