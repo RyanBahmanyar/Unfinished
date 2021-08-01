@@ -44,7 +44,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DoSceneTransition (int index)
     {
-        transitioner.SetTrigger("Start");
+        if (transitioner != null)
+        {
+            transitioner.SetTrigger("Start");
+        }
+        
         yield return new WaitForSeconds(transistionTime);
         SceneManager.LoadScene(index);
     }
