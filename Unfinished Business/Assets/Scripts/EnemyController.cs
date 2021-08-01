@@ -189,11 +189,11 @@ public class EnemyController : Moveable
         
         
         //Get the direction to the next waypoint.
-        Vector2 direction = Vector2.zero;
+        Vector2 direction = trueTarget - transform.position;
         if (currentWaypoint < path.vectorPath.Count)
             direction = path.vectorPath[currentWaypoint] - transform.position;
 
-        direction = PerspectiveUtilities.UnForeshortenVector(direction);
+        direction = PerspectiveUtilities.UnForeshortenVector(direction).normalized;
 
         //Check if the Enemy is in a comfortable spot / can move at all.
         float distanceFromTarget = PerspectiveUtilities.GetForeshortenedDistance(transform.position, targetObj.position);
@@ -219,7 +219,7 @@ public class EnemyController : Moveable
 
         Move(direction);
 
-        float waypointDistance = float.PositiveInfinity;
+        float waypointDistance = Vector2.Distance(transform.position, trueTarget);
 
         //Check if the Enemy needs to move to another waypoint.
         if (currentWaypoint < path.vectorPath.Count)
