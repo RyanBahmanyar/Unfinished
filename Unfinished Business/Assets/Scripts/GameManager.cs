@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+public delegate void VoidCallback();
 
 public class GameManager : MonoBehaviour
 {
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
         transitioner = GameObject.FindGameObjectWithTag("SceneTransitioner").GetComponent<Animator>();
     }
 
-    private IEnumerator DoSceneTransition (int index)
+    private IEnumerator DoSceneTransition (int index, VoidCallback callback = null)
     {
         if (transitioner != null)
         {
@@ -51,25 +54,39 @@ public class GameManager : MonoBehaviour
         
         yield return new WaitForSeconds(transistionTime);
         SceneManager.LoadScene(index);
+        if (callback != null)
+        {
+            callback();
+        }
     }
 
-    public void GameOver ()
+    public void Freeze ()
     {
-        StartCoroutine(DoSceneTransition(SceneManager.GetActiveScene().buildIndex));
+        Time.timeScale = 0;
     }
 
-    public void LevelAtIndex (int index)
+    public void Unfreeze ()
     {
-        StartCoroutine(DoSceneTransition(index));
+        Time.timeScale = 1;
     }
 
-    public void NextLevel ()
+    public void GameOver (VoidCallback callback = null)
     {
-        StartCoroutine(DoSceneTransition(SceneManager.GetActiveScene().buildIndex + 1));
+        LevelAtIndex(SceneManager.GetActiveScene().buildIndex, callback);
     }
 
-    public void PreviousLevel ()
+    public void LevelAtIndex (int index, VoidCallback callback = null)
     {
-        StartCoroutine(DoSceneTransition(SceneManager.GetActiveScene().buildIndex - 1));
+        StartCoroutine(DoSceneTransition(index, callback));
+    }
+
+    public void NextLevel (VoidCallback callback = null)
+    {
+        LevelAtIndex(SceneManager.GetActiveScene().buildIndex + 1, callback);
+    }
+
+    public void PreviousLevel (VoidCallback callback = null)
+    {
+        LevelAtIndex(SceneManager.GetActiveScene().buildIndex - 1, callback);
     }
 }
