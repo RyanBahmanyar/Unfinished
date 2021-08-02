@@ -32,6 +32,8 @@ public class PlayerController : Moveable
     /// </summary>
     private bool canDash = true;
 
+    private bool canFlip = true;
+
     /// <summary>
     /// Time until next dash.
     /// </summary>
@@ -60,6 +62,9 @@ public class PlayerController : Moveable
     /// </summary>
     [SerializeField]
     private GameObject foot;
+
+    [SerializeField]
+    private ProjectileInstantiater shooter;
 
     /// <summary>
     /// The name of the bool that the animator uses to play the walking animation.
@@ -130,6 +135,26 @@ public class PlayerController : Moveable
         damageBox.enabled = true;
     }
 
+    public bool FacingRight()
+    {
+        return facingRight;
+    }
+
+    public void DisableFlip()
+    {
+        canFlip = false;
+    }
+
+    public void EnableFlip()
+    {
+        canFlip = true;
+    }
+
+    public void Shoot()
+    {
+        shooter.SpawnProjectile();
+    }
+
     private void FixedUpdate()
     {
         //Process the player movement for this frame...
@@ -142,7 +167,7 @@ public class PlayerController : Moveable
             }
 
             //Face the player in the right direction...
-            if ((direction.x > 0 && !facingRight) || (direction.x < 0 && facingRight))
+            if (((direction.x > 0 && !facingRight) || (direction.x < 0 && facingRight))&& canFlip)
             {
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
                 facingRight = !facingRight;
