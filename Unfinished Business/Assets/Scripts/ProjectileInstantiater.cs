@@ -15,7 +15,7 @@ public class ProjectileInstantiater : MonoBehaviour
 
     public void SpawnProjectile()
     {
-        if (health.Money > 1)
+        if (health.Money > 0)
         {
             health.Money -= 1;
 

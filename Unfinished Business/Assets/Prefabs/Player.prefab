@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2964695086062169544}
   - component: {fileID: 2964695086062169547}
+  - component: {fileID: 4181252972856582079}
   m_Layer: 10
   m_Name: Light Attack
   m_TagString: Untagged
@@ -47,6 +48,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.68
+--- !u!114 &4181252972856582079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2964695086062169545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a013e2d2fb0a6f64cb7b1d044977b76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyRef: {fileID: 2964695086295488059}
+  hitTag: Damageable
+  damage: 1
+  depthTolerance: 0.5
+  hitObjects: []
 --- !u!1 &2964695086295488059
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Money: 5
   invicibilityTime: 0.1
+  hitAtZero: 0
   moneyDropDistance: 1
   moneyDropTime: 0.1
 --- !u!1 &2964695086305667198
