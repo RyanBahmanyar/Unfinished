@@ -11,8 +11,11 @@ public class GameOverMenu : MonoBehaviour
 
     private GameObject mainUI;
 
+    PlayerHealth playerHP;
+
     private void Start()
     {
+        playerHP = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         mainUI = GameObject.FindWithTag(UITag);
         SetChildrenActive(false);
     }
@@ -47,5 +50,11 @@ public class GameOverMenu : MonoBehaviour
             mainUI.SetActive(true);
         }
         SetChildrenActive(false);
+    }
+
+    private void Update()
+    {
+        if (playerHP.hitAtZero)
+            Open();
     }
 }
