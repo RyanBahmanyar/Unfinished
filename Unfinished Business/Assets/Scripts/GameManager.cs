@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int Score { get; private set; }
     public int CurrentHighestScore { get; private set; }
     public static GameManager instance { get; private set; }
+    public GameOverMenu GOM;
 
     private void Awake()
     {
@@ -51,6 +52,11 @@ public class GameManager : MonoBehaviour
             {
                 CurrentHighestScore = Score;
             }
+        }
+
+        if (playerHealthRef.hitAtZero) 
+        {
+            GOM.Open();
         }
     }
 
