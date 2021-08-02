@@ -11,10 +11,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestUI.unity
     guid: 342b7a6266930ed4b89bc7cb0944345c
   - enabled: 0
     path: Assets/Scenes/TestToScene.unity
     guid: a30e601fd2539144b9636b088c251869
+  - enabled: 1
+    path: Assets/Scenes/Gameplay.unity
+    guid: d01cbb6bd5274c7489d568f0d1b9e4fb
   m_configObjects: {}

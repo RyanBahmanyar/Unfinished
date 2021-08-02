@@ -30,7 +30,7 @@ public class DisplayCoins : MonoBehaviour
     {
         if (playerHeathRef != null)
         {
-            text.text = "$" + (playerHeathRef.Money * modifier).ToString();
+            text.text = (playerHeathRef.Money * modifier).ToString();
         }
     }
 }

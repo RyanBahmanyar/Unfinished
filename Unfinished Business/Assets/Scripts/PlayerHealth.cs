@@ -15,7 +15,7 @@ public class PlayerHealth : HealthController
     float hitTimer;
 
     // Whether or not the player took damage at $0
-    private bool hitAtZero = false;
+    public bool hitAtZero = false;
 
     // The global cash pool
     CollectablePool cashPool;
@@ -66,6 +66,9 @@ public class PlayerHealth : HealthController
         /// Todo::
         /// - Play death animation
         /// - Restart from the beginning of the level
+        PlayerController pc = GetComponent<PlayerController>();
+        pc.DisableAttack();
+        pc.DisableMove();
     }
 
     private void DropMoney(int amount) 
