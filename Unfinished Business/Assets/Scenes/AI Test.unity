@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 4918089515988052900, guid: c90d9a64e1dec7649b331e47cf26e239, type: 3}
+  playerController: {fileID: 0}
+  health: {fileID: 0}
 --- !u!4 &58494919
 Transform:
   m_ObjectHideFlags: 0
