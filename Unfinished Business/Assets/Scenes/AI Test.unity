@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &20313568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 20313570}
+  - component: {fileID: 20313569}
+  m_Layer: 0
+  m_Name: Melee Enemy Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &20313569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20313568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71d7bd69adda0c4d874fe77e172e8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCap: 10
+  aggroCap: 3
+--- !u!4 &20313570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20313568}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &58494917
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +248,7 @@ MonoBehaviour:
   initialDelay: 2.5
   heightMax: 2
   heightMin: -5
+  manager: {fileID: 20313569}
 --- !u!4 &150444116
 Transform:
   m_ObjectHideFlags: 0
@@ -334,6 +380,7 @@ MonoBehaviour:
   initialDelay: 0
   heightMax: 2
   heightMin: -5
+  manager: {fileID: 20313569}
 --- !u!4 &437129857
 Transform:
   m_ObjectHideFlags: 0
@@ -382,6 +429,7 @@ MonoBehaviour:
   initialDelay: 5
   heightMax: 2
   heightMin: -5
+  manager: {fileID: 20313569}
 --- !u!4 &640821163
 Transform:
   m_ObjectHideFlags: 0

@@ -373,12 +373,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 210
   maxVelocityChange: 1
+  dashSpeed: 0
   targetObj: {fileID: 0}
   nextWaypointDistance: 0.75
   goalPlayerDistance: 1.25
   goalMargin: 0.25
   maxHeightDifference: 0.3
   heightMargin: 0.25
+  passiveGoalPlayerDistance: 7
+  passiveGoalMargin: 2
   facingRight: 0
 --- !u!114 &-7611938168694765974
 MonoBehaviour:

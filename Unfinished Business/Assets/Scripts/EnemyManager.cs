@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
 
         if (difference == 0)
             return 0;
-        else if (difference > 0)
+        else if (difference < 0)
             return 1;
         else
             return -1;
@@ -42,7 +42,37 @@ public class EnemyManager : MonoBehaviour
         enemies = new PriorityQueue<GameObject>(enemyCap, CompareDistanceToPlayer);
 
         instantiationQueue = new Queue<EnemyInstantiater>();
+
+        InvokeRepeating("UpdateEnemyStates", 0f, 1f);
     }
+
+    private void UpdateEnemyStates()
+    {
+        lock (this)
+        {
+            if (enemies.Count() > 0)
+            {
+                List<GameObject> enemyList = new List<GameObject>();
+
+                do
+                {
+                    GameObject enemy = enemies.Dequeue();
+                    EnemyController controller = enemy.GetComponent<EnemyController>();
+
+                    if (enemyList.Count < aggroCap)
+                        controller.State = EnemyController.FightState.AGGRO;
+                    else
+                        controller.State = EnemyController.FightState.PASSIVE;
+
+                    enemyList.Add(enemy);
+                }
+                while (!enemies.IsEmpty());
+
+                enemies = new PriorityQueue<GameObject>(enemyList, enemyCap, CompareDistanceToPlayer);
+            }
+        }
+    }
+
 
     public void AddToQueue(EnemyInstantiater instor)
     {
@@ -57,20 +87,34 @@ public class EnemyManager : MonoBehaviour
         if (enemy.GetComponent<EnemyController>() == null)
             throw new ArgumentException("GameObject did not have an EnemyController.");
 
-        enemies.Add(enemy);
+        lock (this)
+        {
+            enemies.Add(enemy);
+        }
     }
 
     public void EnemyDied(GameObject enemy)
     {
-        IList<GameObject> enemyList = enemies.ToList();
-        bool found = enemyList.Remove(enemy);
+        lock (this)
+        {
+            IList<GameObject> enemyList = enemies.ToList();
+            bool found = enemyList.Remove(enemy);
 
-        if (!found)
-            throw new ArgumentException("The killed enemy was not found." );
+            if (!found)
+                throw new ArgumentException("The killed enemy was not found.");
 
-        enemies = new PriorityQueue<GameObject>(enemyList, enemyCap, CompareDistanceToPlayer);
+            enemies = new PriorityQueue<GameObject>(enemyList, enemyCap, CompareDistanceToPlayer);
+        }
 
         if (instantiationQueue.Count > 0)
             instantiationQueue.Dequeue().MakeInstance();
+    }
+
+    public IList<GameObject> GetEnemies()
+    {
+        lock (this)
+        {
+            return enemies.ToList();
+        }
     }
 }

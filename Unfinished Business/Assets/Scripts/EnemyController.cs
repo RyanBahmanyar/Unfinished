@@ -47,6 +47,18 @@ public class EnemyController : Moveable
     private float heightMargin = 0.25f;
 
     /// <summary>
+    /// The distance the Enemy wants to be from its target.
+    /// </summary>
+    [SerializeField]
+    private float passiveGoalPlayerDistance = 7f;
+
+    /// <summary>
+    /// How far off the Enemy is ok with being from the target distance.
+    /// </summary>
+    [SerializeField]
+    private float passiveGoalMargin = 2f;
+
+    /// <summary>
     /// The path that the Enemy is following.
     /// A path is a series of waypoints.
     /// </summary>
@@ -94,6 +106,17 @@ public class EnemyController : Moveable
     /// </summary>
     private bool canAttack = true;
 
+    private EnemyManager manager;
+
+    public enum FightState {PASSIVE, AGGRO}
+
+    [SerializeField]
+    public FightState State
+    {
+        get;
+        set;
+    }
+
     /// <summary>
     /// Get Components and start looking for paths.
     /// </summary>
@@ -125,9 +148,10 @@ public class EnemyController : Moveable
         canAttack = true;
     }
 
-    public void SetTarget(Transform _target)
+    public void SetUp(Transform _target, EnemyManager _manager)
     {
         targetObj = _target;
+        manager = _manager;
     }
 
     /// <summary>
@@ -137,23 +161,57 @@ public class EnemyController : Moveable
     {
         if (seeker.IsDone())
         {
-            Vector2 radialPoint = transform.position;
-
-            //Keep the target position within the height restrictions.
-            if (transform.position.y - targetObj.position.y > maxHeightDifference)
+            switch (State)
             {
-                radialPoint.y = targetObj.position.y + maxHeightDifference;
-            }
-            else if (targetObj.position.y - transform.position.y > maxHeightDifference)
-            {
-                radialPoint.y = targetObj.position.y - maxHeightDifference;
-            }
+                case FightState.AGGRO:
+                    Vector2 radialPoint = transform.position;
 
-            //Keep the target position within distance restrictions.
-            trueTarget = ClosestPointOnEllipse(goalPlayerDistance, targetObj.position, radialPoint);
+                    //Keep the target position within the height restrictions.
+                    if (transform.position.y - targetObj.position.y > maxHeightDifference)
+                    {
+                        radialPoint.y = targetObj.position.y + maxHeightDifference;
+                    }
+                    else if (targetObj.position.y - transform.position.y > maxHeightDifference)
+                    {
+                        radialPoint.y = targetObj.position.y - maxHeightDifference;
+                    }
 
+                    //Keep the target position within distance restrictions.
+                    trueTarget = ClosestPointOnEllipse(goalPlayerDistance, targetObj.position, radialPoint);
+                    break;
+
+                case FightState.PASSIVE:
+                    Vector3 pointOnEllipse = ClosestPointOnEllipse(passiveGoalPlayerDistance, targetObj.position, transform.position);
+
+                    if (PerspectiveUtilities.GetForeshortenedDistance(pointOnEllipse, transform.position) > passiveGoalMargin)
+                        trueTarget = pointOnEllipse;
+                    else
+                    {
+                        Vector2 netForce = Vector2.zero;
+                        foreach(GameObject enemy in manager.GetEnemies())
+                        {
+                            if(! enemy.Equals(gameObject) && ! enemy.GetComponent<EnemyController>().State.Equals(FightState.AGGRO))
+                            {
+                                netForce += CalculateForce(1f, enemy.transform.position);
+                            }
+                        }
+
+                        netForce += CalculateForce(2f, ClosestPointOnEllipse(passiveGoalPlayerDistance - passiveGoalMargin, targetObj.position, transform.position));
+                        netForce += CalculateForce(2f, ClosestPointOnEllipse(passiveGoalPlayerDistance + passiveGoalMargin, targetObj.position, transform.position));
+
+                        trueTarget = transform.position + (Vector3) netForce;
+                    }
+
+                    break;
+
+            }
             seeker.StartPath(transform.position, trueTarget, OnPathComplete);
         }
+    }
+
+    private Vector2 CalculateForce(float repellency, Vector3 other)
+    {
+        return (transform.position - other).normalized * (repellency / Mathf.Pow(PerspectiveUtilities.GetForeshortenedDistance(transform.position, other), 2));
     }
 
     /// <summary>
@@ -191,38 +249,7 @@ public class EnemyController : Moveable
             anim.SetBool(walkingAnimatorKey, false);
             return;
         }
-        
-        
-        //Get the direction to the next waypoint.
-        Vector2 direction = trueTarget - transform.position;
-        if (currentWaypoint < path.vectorPath.Count)
-            direction = path.vectorPath[currentWaypoint] - transform.position;
 
-        direction = PerspectiveUtilities.UnForeshortenVector(direction).normalized;
-
-        //Check if the Enemy is in a comfortable spot / can move at all.
-        float distanceFromTarget = PerspectiveUtilities.GetForeshortenedDistance(transform.position, targetObj.position);
-        bool acceptableDistance = distanceFromTarget < goalPlayerDistance + goalMargin && distanceFromTarget > goalPlayerDistance - goalMargin;
-        bool acceptableHeight = Mathf.Abs(transform.position.y - targetObj.position.y) < maxHeightDifference + heightMargin;
-
-        if (acceptableDistance && acceptableHeight || !canMove)
-        {
-            direction = Vector2.zero;
-
-            anim.SetBool(walkingAnimatorKey, false);
-
-            //Attack if the Enemy is in a desired position and is able to.
-            if (canAttack)
-            {
-                anim.SetTrigger(attackAnimatorKey);
-            }
-        }
-        else
-        {
-            anim.SetBool(walkingAnimatorKey, true);
-        }
-
-        Move(direction);
 
         float waypointDistance = Vector2.Distance(transform.position, trueTarget);
 
@@ -230,10 +257,64 @@ public class EnemyController : Moveable
         if (currentWaypoint < path.vectorPath.Count)
             waypointDistance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
 
-        if (waypointDistance < nextWaypointDistance)
+        while (waypointDistance < nextWaypointDistance)
         {
             currentWaypoint++;
+            if (currentWaypoint < path.vectorPath.Count)
+                waypointDistance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
+            else
+                break;
         }
+
+        //Get the direction to the next waypoint.
+        Vector2 direction = trueTarget - transform.position;
+        if (currentWaypoint < path.vectorPath.Count)
+            direction = path.vectorPath[currentWaypoint] - transform.position;
+
+        direction = PerspectiveUtilities.UnForeshortenVector(direction).normalized;
+
+        if (State.Equals(FightState.AGGRO))
+        {
+            //Check if the Enemy is in a comfortable spot / can move at all.
+            float distanceFromTarget = PerspectiveUtilities.GetForeshortenedDistance(transform.position, targetObj.position);
+            bool acceptableDistance = distanceFromTarget < goalPlayerDistance + goalMargin && distanceFromTarget > goalPlayerDistance - goalMargin;
+            bool acceptableHeight = Mathf.Abs(transform.position.y - targetObj.position.y) < maxHeightDifference + heightMargin;
+
+            if (acceptableDistance && acceptableHeight || !canMove)
+            {
+                direction = Vector2.zero;
+
+                anim.SetBool(walkingAnimatorKey, false);
+
+                //Attack if the Enemy is in a desired position and is able to.
+                if (canAttack)
+                {
+                    anim.SetTrigger(attackAnimatorKey);
+                }
+            }
+            else
+            {
+                anim.SetBool(walkingAnimatorKey, true);
+            }
+        }
+        else
+        {
+            if(! canMove)
+            {
+                direction = Vector2.zero;
+            }
+
+            if (direction.magnitude == 0)
+            {
+                anim.SetBool(walkingAnimatorKey, false);
+            }
+            else
+            {
+                anim.SetBool(walkingAnimatorKey, true);
+            }
+        }
+
+        Move(direction);
         
 
         //Face the Enemy towards the target...

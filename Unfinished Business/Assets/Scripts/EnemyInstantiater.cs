@@ -81,7 +81,7 @@ public class EnemyInstantiater : MonoBehaviour
     {
         GameObject enemyInstance = Instantiate(enemy, GetRandomEnemySpawnVector(), Quaternion.Euler(Vector3.zero));
         EnemyController controller = enemyInstance.GetComponent<EnemyController>();
-        controller.SetTarget(player);
+        controller.SetUp(player, manager);
 
         EnemyHealth health = enemyInstance.GetComponent<EnemyHealth>();
         health.SetDeathCallback(manager.EnemyDied);
