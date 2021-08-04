@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyHealth : HealthController
 {
@@ -22,6 +23,13 @@ public class EnemyHealth : HealthController
     [SerializeField]
     Animator anim;
 
+    private Action<GameObject> deathCallback;
+
+    public void SetDeathCallback(Action<GameObject> callBack)
+    {
+        deathCallback = callBack;
+    }
+
     protected override bool isDead()
     {
         return HP <= 0;
@@ -39,6 +47,7 @@ public class EnemyHealth : HealthController
     {
         if (isDead())
         {
+            deathCallback(gameObject);
             GameObject.FindWithTag("Cash Pool").GetComponent<CollectablePool>().SpawnCollectables(moneyDropAmount, this.transform.position, moneyDropDistance, moneyDropTime);
             Destroy(this.gameObject);
         }

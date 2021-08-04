@@ -33,6 +33,9 @@ public class EnemyInstantiater : MonoBehaviour
 
     private Func<float, float> updateRate = SimpleUpdateRate;
 
+    [SerializeField]
+    private EnemyManager manager;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -80,6 +83,9 @@ public class EnemyInstantiater : MonoBehaviour
         EnemyController controller = enemyInstance.GetComponent<EnemyController>();
         controller.SetTarget(player);
 
+        EnemyHealth health = enemyInstance.GetComponent<EnemyHealth>();
+        health.SetDeathCallback(manager.EnemyDied);
+
         return enemyInstance;
     }
 
@@ -92,13 +98,16 @@ public class EnemyInstantiater : MonoBehaviour
     private void FixedUpdate()
     {
         timer += Time.deltaTime;
-        
-        if ((timer - initialDelay) * enemiesPerSecond > 1)
+
+        if ((timer - initialDelay) * enemiesPerSecond > 1 && manager.CanAdd())
         {
             timer = initialDelay;
-            InstantiateEnemy();
+            GameObject instance = InstantiateEnemy();
+            manager.AddEnemy(instance);
             enemiesPerSecond = updateRate(enemiesPerSecond);
         }
+
+
     }
 
 }
