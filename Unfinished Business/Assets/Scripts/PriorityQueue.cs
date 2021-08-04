@@ -25,8 +25,8 @@ public class PriorityQueue<T>
 
         comparator = _comparator;
 
-        elementCount = size;
-        heap = new T[elementCount + 1];
+        elementCount = (uint) list.Count;
+        heap = new T[size + 1];
 
         for(int i = 0; i < list.Count; i++)
         {
@@ -71,13 +71,13 @@ public class PriorityQueue<T>
             rightChild = heap[GetRightChild(index)];
 
         //Runs while there is still a child less than the node to percolate down.
-        while (((! leftChild.Equals(default(T))) && comparator(parent, leftChild) < 0) ||
-                ((! rightChild.Equals(default(T))) && comparator(parent, rightChild) < 0))
+        while ((IsNotNullNorDefault(leftChild) && comparator(parent, leftChild) < 0) ||
+                (IsNotNullNorDefault(rightChild) && comparator(parent, rightChild) < 0))
         {
             T biggerChild;
             uint biggerIndex;
             //Finds which existing child is the greatest.
-            if (rightChild.Equals(default(T)) || (!leftChild.Equals(default(T)) && comparator(leftChild, rightChild) > 0))
+            if (! IsNotNullNorDefault(rightChild) || (IsNotNullNorDefault(leftChild) && comparator(leftChild, rightChild) > 0))
             {
                 biggerChild = leftChild;
                 biggerIndex = GetLeftChild(index);
@@ -110,7 +110,7 @@ public class PriorityQueue<T>
         T current = heap[index];
         T parent = heap[GetParent(index)];
 
-        while(! parent.Equals(default(T)) && comparator(current, parent) > 0)
+        while(IsNotNullNorDefault(parent) && comparator(current, parent) > 0)
         {
             heap[index] = parent;
             index = GetParent(index);
@@ -129,7 +129,7 @@ public class PriorityQueue<T>
             throw new Exception("PriorityQueue doesn't have enough room for another item. Current size is " + elementCount + " and " + heap.Length + " slots are available.");
         }
 
-        heap[elementCount++] = item;
+        heap[++elementCount] = item;
 
         PercolateUp(elementCount);
     }
@@ -175,11 +175,18 @@ public class PriorityQueue<T>
     {
         List<T> output = new List<T>();
 
-        for(int i = 1; i < heap.Length && heap[i] != null && !heap[i].Equals(default(T)); i++)
+        Debug.Log(heap[0]);
+
+        for(int i = 1; i < heap.Length && IsNotNullNorDefault(heap[i]); i++)
         {
             output.Add(heap[i]);
         }
 
         return output;
+    }
+
+    private bool IsNotNullNorDefault(T item)
+    {
+        return item != null && !item.Equals(default(T));
     }
 }

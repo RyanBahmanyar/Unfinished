@@ -99,15 +99,18 @@ public class EnemyInstantiater : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if ((timer - initialDelay) * enemiesPerSecond > 1 && manager.CanAdd())
+        if ((timer - initialDelay) * enemiesPerSecond > 1)
         {
             timer = initialDelay;
-            GameObject instance = InstantiateEnemy();
-            manager.AddEnemy(instance);
-            enemiesPerSecond = updateRate(enemiesPerSecond);
+            manager.AddToQueue(this);
         }
+    }
 
-
+    public void MakeInstance()
+    {
+        GameObject instance = InstantiateEnemy();
+        manager.AddEnemy(instance);
+        enemiesPerSecond = updateRate(enemiesPerSecond);
     }
 
 }

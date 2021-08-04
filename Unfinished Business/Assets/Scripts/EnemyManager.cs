@@ -7,6 +7,8 @@ public class EnemyManager : MonoBehaviour
 {
     private PriorityQueue<GameObject> enemies;
 
+    private Queue<EnemyInstantiater> instantiationQueue;
+
     private Transform player;
 
     [SerializeField]
@@ -38,13 +40,16 @@ public class EnemyManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemies = new PriorityQueue<GameObject>(enemyCap, CompareDistanceToPlayer);
+
+        instantiationQueue = new Queue<EnemyInstantiater>();
     }
 
-    public bool CanAdd()
+    public void AddToQueue(EnemyInstantiater instor)
     {
-        Debug.Log(enemies.HasRoom());
+        instantiationQueue.Enqueue(instor);
 
-        return enemies.HasRoom();
+        if (enemies.HasRoom())
+            instantiationQueue.Dequeue().MakeInstance();
     }
 
     public void AddEnemy(GameObject enemy)
@@ -58,12 +63,14 @@ public class EnemyManager : MonoBehaviour
     public void EnemyDied(GameObject enemy)
     {
         IList<GameObject> enemyList = enemies.ToList();
-
         bool found = enemyList.Remove(enemy);
 
         if (!found)
-            throw new ArgumentException("The killed enemy was not found. " );
+            throw new ArgumentException("The killed enemy was not found." );
 
         enemies = new PriorityQueue<GameObject>(enemyList, enemyCap, CompareDistanceToPlayer);
+
+        if (instantiationQueue.Count > 0)
+            instantiationQueue.Dequeue().MakeInstance();
     }
 }

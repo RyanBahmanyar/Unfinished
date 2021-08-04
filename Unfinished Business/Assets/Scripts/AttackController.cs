@@ -64,7 +64,6 @@ public class AttackController : MonoBehaviour
     private bool IsInRange(GameObject obj) 
     {
         float depth = Mathf.Abs(obj.transform.position.z - bodyRef.transform.position.z);
-        Debug.Log("depth = " + depth);
         return depth <= depthTolerance;
     }
 }
